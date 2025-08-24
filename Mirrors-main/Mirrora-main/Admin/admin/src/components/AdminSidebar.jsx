@@ -2,31 +2,45 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
-  Users as UsersIcon,
   Package,
+  ShoppingCart,
   Settings,
   Circle,
+  Image, // New icon for banners
+  HelpCircle, // New icon for FAQ
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Users", href: "/users", icon: UsersIcon },
   { name: "Products", href: "/products", icon: Package },
+  { name: "Orders", href: "/orders", icon: ShoppingCart },
+  { name: "Banners", href: "/banners", icon: Image },
+  { name: "FAQ", href: "/faq", icon: HelpCircle },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 export default function AdminSidebar() {
+  const activeLinkStyle = {
+    background: "#A67B5B",
+    color: "#fff",
+  };
+
+  const nonActiveLinkStyle = {
+    background: "transparent",
+    color: "#2C1810",
+  };
+
   return (
     <aside
       style={{
         width: 256,
         minHeight: "100vh",
-        background: "#F5F5DC", // Beige background
+        background: "#F8F5F0",
         display: "flex",
         flexDirection: "column",
         padding: "20px 16px",
         boxSizing: "border-box",
-        borderRight: "1px solid #E5E5E5",
+        borderRight: "1px solid #EAE3D9",
       }}
     >
       {/* Logo / Title */}
@@ -86,8 +100,8 @@ export default function AdminSidebar() {
               textDecoration: "none",
               fontWeight: isActive ? 600 : 500,
               fontSize: 14,
-              color: isActive ? "#fff" : "#2C1810",
-              background: isActive ? "#A67B5B" : "transparent",
+              color: isActive ? activeLinkStyle.color : nonActiveLinkStyle.color,
+              background: isActive ? activeLinkStyle.background : nonActiveLinkStyle.background,
               marginBottom: 8,
               transition: "all 0.2s ease",
               fontFamily: "sans-serif",
@@ -99,9 +113,11 @@ export default function AdminSidebar() {
             onMouseLeave={(e) => {
               const isActive = e.currentTarget.classList.contains("active");
               e.currentTarget.style.background = isActive
-                ? "#A67B5B"
-                : "transparent";
-              e.currentTarget.style.color = isActive ? "#fff" : "#2C1810";
+                ? activeLinkStyle.background
+                : nonActiveLinkStyle.background;
+              e.currentTarget.style.color = isActive
+                ? activeLinkStyle.color
+                : nonActiveLinkStyle.color;
             }}
           >
             <item.icon size={18} />
